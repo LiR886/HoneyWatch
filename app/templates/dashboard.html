@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HoneyWatch Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="dashboard-page">
+    <header class="dashboard-header">
+        <div>
+            <p class="eyebrow">HoneyWatch</p>
+            <h1>Security Monitoring Dashboard</h1>
+        </div>
+        <a class="secondary-button" href="/login">Open honeypot</a>
+    </header>
+
+    <main class="dashboard-shell">
+        <section class="metric-grid">
+            <article class="metric-card">
+                <span>Total login attempts</span>
+                <strong>{{ total_attempts }}</strong>
+            </article>
+            <article class="metric-card">
+                <span>Unique source IPs</span>
+                <strong>{{ unique_ips }}</strong>
+            </article>
+            <article class="metric-card">
+                <span>Total alerts</span>
+                <strong>{{ total_alerts }}</strong>
+            </article>
+            <article class="metric-card">
+                <span>Attempts in last 24h</span>
+                <strong>{{ attempts_24h }}</strong>
+            </article>
+        </section>
+
+        <section class="two-column">
+            <article class="panel">
+                <h2>Top targeted usernames</h2>
+                <table>
+                    <thead><tr><th>Username</th><th>Attempts</th></tr></thead>
+                    <tbody>
+                    {% for item in top_usernames %}
+                        <tr><td>{{ item.name }}</td><td>{{ item.count }}</td></tr>
+                    {% else %}
+                        <tr><td colspan="2">No data yet</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </article>
+
+            <article class="panel">
+                <h2>Top source IPs</h2>
+                <table>
+                    <thead><tr><th>Source IP</th><th>Attempts</th></tr></thead>
+                    <tbody>
+                    {% for item in top_ips %}
+                        <tr><td>{{ item.ip }}</td><td>{{ item.count }}</td></tr>
+                    {% else %}
+                        <tr><td colspan="2">No data yet</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </article>
+        </section>
+
+        <section class="panel">
+            <h2>Recent alerts</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr><th>Time</th><th>Severity</th><th>Type</th><th>Source IP</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                    {% for alert in recent_alerts %}
+                        <tr>
+                            <td>{{ alert.created_at }}</td>
+                            <td><span class="severity severity-{{ alert.severity|lower }}">{{ alert.severity }}</span></td>
+                            <td>{{ alert.alert_type }}</td>
+                            <td>{{ alert.source_ip }}</td>
+                            <td>{{ alert.description }}</td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="5">No alerts yet</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Recent login attempts</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr><th>Time</th><th>Source IP</th><th>Username</th><th>Password length</th><th>User-Agent</th></tr>
+                    </thead>
+                    <tbody>
+                    {% for attempt in recent_attempts %}
+                        <tr>
+                            <td>{{ attempt.created_at }}</td>
+                            <td>{{ attempt.source_ip }}</td>
+                            <td>{{ attempt.username }}</td>
+                            <td>{{ attempt.password_length }}</td>
+                            <td class="ua-cell">{{ attempt.user_agent }}</td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="5">No login attempts yet</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

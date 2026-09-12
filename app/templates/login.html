@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Corporate Access Portal</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="login-page">
+    <main class="login-card">
+        <div class="brand">Northbridge Systems</div>
+        <h1>Secure Access Portal</h1>
+        <p class="subtitle">Sign in with your corporate account.</p>
+
+        {% if message %}
+        <div class="error-box">{{ message }}</div>
+        {% endif %}
+
+        <form method="post" action="/login" autocomplete="off">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" maxlength="255" required autofocus>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" maxlength="512" required>
+
+            <button type="submit">Sign in</button>
+        </form>
+
+        <p class="legal">Authorized access only. Activity may be monitored.</p>
+    </main>
+</body>
+</html>
