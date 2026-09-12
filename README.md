@@ -75,15 +75,6 @@ It presents a fake corporate login page, records authentication attempts, stores
 
 The project intentionally does not provide real authentication and does not store submitted passwords. It stores only whether a password was provided and the password length.
 
-Important safety and privacy note
-
-Run HoneyWatch only on systems and networks that you own or are explicitly authorized to use.
-
-The included simulator is intended only for controlled testing against your own HoneyWatch instance. Do not point it at third-party websites or systems without explicit authorization.
-
-If you expose the honeypot to the public internet, remember that IP addresses and User-Agent strings can be personal or operational data. Follow applicable privacy, retention, and notification requirements. Change the default dashboard password before exposing the service outside your own machine.
-
-
 This project is intended for education, defensive cybersecurity research, portfolio demonstration, and authorized laboratory testing.
 
 You are responsible for how and where you deploy it.
